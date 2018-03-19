@@ -1,0 +1,99 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+    <parent>
+    <groupId>maven</groupId>
+    <artifactId>maven</artifactId>
+    <version>1.0</version>
+  </parent>
+  
+  
+  <groupId>groupId</groupId>
+  <artifactId>TestPr1</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+      <name>TestPr1</name>
+  <url>http://maven.apache.org</url>
+
+	  <!--<scm>
+    <connection>scm:git:ssh://git@github.com:devesh301/Gittest.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com:devesh301/Gittest.git</developerConnection>
+    <tag>HEAD</tag>
+	  </scm> -->
+	  
+	  <scm>
+		<url>https://github.com/devesh301/Gittest.git</url>
+		<connection>scm:git:git://github.com/devesh301/Gittest.git</connection>
+		<developerConnection>scm:git:git@github.com:devesh301/Gittest.git</developerConnection>
+	</scm>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  
+  
+  	<dependencies>
+<dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+		
+	</dependencies>
+	
+  <build>
+  <sourceDirectory>src/main/java</sourceDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      
+      			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.2</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<doUpdate>true</doUpdate>
+					<doCheck>false</doCheck>
+					<timestampFormat>{0,date,yyyyMMddHHmmss}</timestampFormat>
+					<items>
+						<item>buildNumber/d</item>
+						<item>timestamp</item>
+					</items>
+				</configuration>
+			</plugin>
+			
+			
+      <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<archive>
+					   <manifestEntries>
+                            <Implementation-Title>${project.name}</Implementation-Title>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                            <Implementation-Revision>${buildNumber}</Implementation-Revision>
+                            <Build-Timestamp>${timestamp}</Build-Timestamp>
+                        </manifestEntries>
+					</archive>
+					<finalName>${project.artifactId}-${project.version}-r${buildNumber}</finalName>
+				</configuration>
+			</plugin>
+    </plugins>
+  </build>
+</project>
